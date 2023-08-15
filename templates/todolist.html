@@ -2,15 +2,26 @@
 
 <form action="/addTodoItem/" method = "post">{% csrf_token %}
     <input type="text" name="content">
-    <input type="submit" value="Add Todo Item">
+    <input type="submit" value="Add Item">
 </form>
 
 <ul>
     {% for i in all_items %}
     <li>{{i.content}}
         <form action="/deleteTodoItem/{{i.id}}/" method = "post">{% csrf_token %}
-            <input type="submit" value="Delete">
-</form>
+          <input type="submit" value="Delete">
+        </form>
+        <ul>
+            {% for sub_item in i.addsubtodoitem_set.all %}
+            <li>
+                {{sub_item.content}}
+            </li>
+            {% endfor %}
+        </ul>
+        <form action="/addsubTodoItem/{{i.id}}/" method = "post">{% csrf_token %}
+            <input type="text" name="subtitle">
+            <input type="submit" value="Add sub task">
+        </form>
     </li>
     {% endfor %}
 </ul>
