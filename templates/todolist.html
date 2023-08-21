@@ -12,7 +12,7 @@
           <input type="submit" value="Delete">
         </form>
         <ul>
-            {% for sub_item in i.addsubtodoitem_set.all %}
+            {% for sub_item in i.subtodoitem_set.all %}
             <li>
                 {{sub_item.content}}
             </li>

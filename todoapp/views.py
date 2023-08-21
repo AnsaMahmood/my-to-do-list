@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from .models import TodoListItem, AddsubTodoItem
+from .models import TodoListItem, SubTodoItem
 
 
 def todoappView(request):
@@ -10,21 +10,21 @@ def todoappView(request):
 
 
 def addTodoView(request):
-    x = request.POST['content']
-    new_item = TodoListItem(content=x)
+    text = request.POST['content']
+    new_item = TodoListItem(content=text)
     new_item.save()
     return HttpResponseRedirect('/todoapp/')
 
 
 def deleteTodoView(request, id):
-    y = TodoListItem.objects.get(id=id)
-    y.delete()
+    item_delete = TodoListItem.objects.get(id=id)
+    item_delete.delete()
     return HttpResponseRedirect('/todoapp/')
 
 
 def addsubTodoView(request, id):
     text = request.POST.get('subtitle')
     parent_item = TodoListItem.objects.get(id=id)
-    new_item = AddsubTodoItem(add_sub_title=parent_item, content=text)
+    new_item = SubTodoItem(add_sub_title=parent_item, content=text)
     new_item.save()
     return HttpResponseRedirect('/todoapp/')
